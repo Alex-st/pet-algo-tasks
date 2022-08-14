@@ -27,7 +27,7 @@ public class Perimeter {
                 }
             }
         }
-        System.out.println(perimeter);
+        System.out.printf("%.15f", perimeter);
     }
 
     private static List<Pair<Integer, Integer>> readPoints() throws IOException {
