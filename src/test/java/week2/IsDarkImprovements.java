@@ -1,8 +1,9 @@
 package week2;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
+import java.util.Objects;
 
 @RunWith(JUnit4.class)
 public class IsDarkImprovements {
@@ -16,6 +17,29 @@ public class IsDarkImprovements {
                 if (image[i][j] >= 128) {
                     count += 1;
                 }
+            }
+        }
+        return count < N * N / 2;
+    }
+
+    public boolean isDarkCached() {
+        var count = 0;
+        var cacheCellIsLight = new Boolean[256];
+
+        for (int j = 0; j < N; ++j) {
+            for (int i = 0; i < N; ++i) {
+                byte color = image[i][j];
+                if (Objects.isNull(cacheCellIsLight[color])) {
+                    if (image[i][j] >= 128) {
+                        count += 1;
+                        cacheCellIsLight[color] = true;
+                    }
+                } else {
+                    if (cacheCellIsLight[color]) {
+                        count++;
+                    }
+                }
+
             }
         }
         return count < N * N / 2;
