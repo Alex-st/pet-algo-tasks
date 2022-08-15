@@ -20,45 +20,21 @@ public class IsDarkImprovements {
         return count < N * N / 2;
     }
 
-    public boolean isDarkOptimized1() {
-        var lightCount = 0;
-        var darkCount = 0;
-        while (lightCount <= N * N / 2 && darkCount <= N * N / 2) {
-            // starting reading by i not j
-            for (int i = 0; i < N; ++i) {
-                for (int j = 0; j < N; ++j) {
-                    if (image[i][j] >= 128) {
-                        lightCount += 1;
-                    } else {
-                        darkCount +=1;
-                    }
-                }
-            }
-        }
-
-        return lightCount < N * N / 2;
-    }
-
-    public boolean isDarkJavaOptimized2() {
-        var lightCount = 0;
-        var darkCount = 0;
+    public boolean isDarkJavaOptimized() {
+        var count = 0;
 
         int counterDelta[] = new int[256];
         for (int i = 128; i < counterDelta.length; i++) {
             counterDelta[i] = 1;
         }
-
-        while (lightCount <= N * N / 2 && darkCount <= N * N / 2) {
             // starting reading by i not j
             for (int i = 0; i < N; ++i) {
                 for (int j = 0; j < N; ++j) {
-                    lightCount = lightCount + counterDelta[image[i][j]];
-                    darkCount = darkCount + (1 - counterDelta[image[i][j]]);
+                    count = count + counterDelta[image[i][j]];
                 }
             }
-        }
 
-        return lightCount < N * N / 2;
+        return count < N * N / 2;
     }
 
 }
