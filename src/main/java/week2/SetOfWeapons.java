@@ -1,8 +1,11 @@
 package week2;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,18 +13,33 @@ import java.util.stream.Collectors;
 public class SetOfWeapons {
 
     public static void main(String[] args) throws IOException {
-        int res = 0;
+
         List<Integer> params = readParams();
-        for(int i = 0; i <= params.get(3)/params.get(0); i++) {
-            for(int j = 0; j <= params.get(3)/params.get(1); j++) {
-                for(int k = 0; k <= params.get(3)/params.get(2); k++) {
-                    if (i*params.get(0) + j*params.get(1) + k*params.get(2) == params.get(3)) {
-                        res++;
-                    }
-                }
-            }
+        List<Boolean> res = new ArrayList<>();
+        List<Integer> stack = new ArrayList<>();
+
+        res(params.get(3), params.subList(0,3), res, stack);
+
+        System.out.println(res.size());
+    }
+
+
+    private static void res(int weight, List<Integer> components, List<Boolean> res, List<Integer> componentStack) {
+        if (weight == 0 ) {
+            res.add(true);
+            System.out.println(StringUtils.join(componentStack,','));
+            return;
         }
-        System.out.println(res);
+        if (weight < 0) {
+            return;
+        }
+
+        for (int componentWeight: components) {
+            var updatedWeight = weight - componentWeight;
+            componentStack.add(componentWeight);
+            res(updatedWeight, components, res, componentStack);
+            componentStack.remove(componentStack.size() - 1);
+        }
     }
 
     private static List<Integer> readParams() throws IOException {
