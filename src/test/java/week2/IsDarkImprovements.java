@@ -54,11 +54,6 @@ public class IsDarkImprovements {
                 for (int j = 0; j < N; ++j) {
                     lightCount = lightCount + counterDelta[image[i][j]];
                     darkCount = darkCount + (1 - counterDelta[image[i][j]]);
-                    if (image[i][j] >= 128) {
-                        lightCount += 1;
-                    } else {
-                        darkCount +=1;
-                    }
                 }
             }
         }
