@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class SetOfWeapons {
@@ -17,17 +18,24 @@ public class SetOfWeapons {
         List<Integer> params = readParams();
         List<Boolean> res = new ArrayList<>();
         List<Integer> stack = new ArrayList<>();
+        List<List<Integer>> successfullComponents = new ArrayList<>();
 
-        res(params.get(3), params.subList(0,3), res, stack);
+        res(params.get(3), params.subList(0,3), res, stack, successfullComponents);
 
         System.out.println(res.size());
     }
 
-
-    private static void res(int weight, List<Integer> components, List<Boolean> res, List<Integer> componentStack) {
+    private static void res(int weight, List<Integer> components, List<Boolean> res,
+                            List<Integer> componentStack, List<List<Integer>> successfullComponents) {
         if (weight == 0 ) {
-            res.add(true);
-            System.out.println(StringUtils.join(componentStack,','));
+            Optional<List<Integer>> alreadyTheSameList = successfullComponents.stream()
+                    .filter(successfullComponentsSet -> successfullComponentsSet.containsAll(componentStack))
+                    .findFirst();
+
+            if (alreadyTheSameList.isEmpty()) {
+                res.add(true);
+                successfullComponents.add(new ArrayList<>(componentStack));
+            }
             return;
         }
         if (weight < 0) {
@@ -37,7 +45,7 @@ public class SetOfWeapons {
         for (int componentWeight: components) {
             var updatedWeight = weight - componentWeight;
             componentStack.add(componentWeight);
-            res(updatedWeight, components, res, componentStack);
+            res(updatedWeight, components, res, componentStack, successfullComponents);
             componentStack.remove(componentStack.size() - 1);
         }
     }
