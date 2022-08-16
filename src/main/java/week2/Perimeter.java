@@ -10,6 +10,15 @@ import java.util.List;
 
 public class Perimeter {
 
+    /*
+        Find max perimeter of triangle that could be composed from points below
+        input:
+        4
+        0 0
+        1 0
+        0 1
+        1 1
+     */
     public static void main(String[] args) throws IOException {
         // Enter data using BufferReader
         List<Pair<Integer, Integer>> points = readPoints();

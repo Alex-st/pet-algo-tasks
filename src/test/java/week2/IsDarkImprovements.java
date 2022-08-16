@@ -20,6 +20,19 @@ public class IsDarkImprovements {
         return count < N * N / 2;
     }
 
+    public boolean isDarkJavaOptimal() {
+        var count = 0;
+        // starting reading by i not j
+        for (int i = 0; i < N; ++i) {
+            for (int j = 0; j < N; ++j) {
+                //since image has byte type, last digit for all values > 127 will be 1 (for less 0) so
+                count = count + image[i][j] << 7;
+            }
+        }
+
+        return count < N * N / 2;
+    }
+
     public boolean isDarkJavaOptimized() {
         var count = 0;
 
