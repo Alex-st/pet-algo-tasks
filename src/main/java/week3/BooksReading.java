@@ -22,8 +22,8 @@ public class BooksReading {
                 new InputStreamReader(System.in));
 
         String paramString = reader.readLine();
-        String BooksArrayString = reader.readLine();
-        List<Integer> arrayList = Arrays.asList(BooksArrayString.split(" ")).stream()
+        String booksArrayString = reader.readLine();
+        List<Integer> arrayList = Arrays.asList(booksArrayString.split(" ")).stream()
                 .map(Integer::valueOf)
                 .collect(Collectors.toList());
         Integer time = Integer.valueOf(paramString.split(" ")[1]);
